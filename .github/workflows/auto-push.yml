@@ -1,6 +1,12 @@
 name: Automatic Code Push
 
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'output.txt'
+
   workflow_dispatch:
 
 permissions:
@@ -21,10 +27,14 @@ jobs:
 
       - name: Create File
         run: |
-          echo "Code pushed automatically using GitHub Action" > output.txt
+          echo "Code pushed automatically at $(date)" > output.txt
 
       - name: Push Changes
         run: |
           git add output.txt
-          git commit -m "Automated code push"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "Automated code push"
+            git push
+          else
+            echo "No changes to push"
+          fi
