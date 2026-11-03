@@ -21,7 +21,7 @@ jobs:
 
       - name: Create File
         run: |
-          echo "Code pushed automatically using GitHub Actions" > output.txt
+          echo "Code pushed automatically using GitHub Action" > output.txt
 
       - name: Push Changes
         run: |
